@@ -1,0 +1,97 @@
+--------------
+Başlangıç;
+-kullanıcıya yönetici ya da kullanıcı olduğunu sorucak.
+-kullanıcı istediği zaman yönetici rolüne ya da kullanıcı rolüne geçebilecek.
+-_-_-_-_-_-_-_-_-_-_-
+Her ikisinde de;
+-eklenen kitapları listeleyebileceğiz.
+-programdan çıkış komutu ile çıkabileceğiz.
+-_-_-_-_-_-_-_-_-_-_-
+Eğer yönetici ise;
+Ekleme;
+programda ekle komutu ile istediğimiz kadar kitap ekleyebileceğiz:
+------
+Silme;
+programda sil komutu ile eklenmiş olan kitapları silebileceğiz. Hangi kitapı silmek istediğini HashMap ya da
+ArrayList ile seçiceğiz.
+------
+Hepsini silme;
+programda hepsini sil komutu ile bütün eklenmiş kitapları silebileceğiz.
+-_-_-_-_-_-_-_-_-_-_-
+Eğer kullanıcı ise;
+Kitapları satın alabilecek ve aldığı zaman stokdan 1 kitap azalıcak.
+Kitapları ürün ismine göre alıcak.(örn: Sineklerin tanrısı)
+-_-_-_-_-_-_-_-_-_-_-
+------
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+Tarih: 19.06.2023
+Saat: 22:43
+Yapılan şeyler;
+-Kitap ekleme
+-Kitap silme
+-Kitap listeleme
+------
+Yapılması gereken şeyler:
+-Hangi kitabı silmek istediğini sormak.
+-Kullanıcıya Yönetici ya da Kullanıcı mı olduğunu sormak.
+-Yazıları daha güzelleştirmek ve esnek bir hale getirmek.
+-Kullanıcının seçtiği role göre yapabileceği işlemleri kullanıcıya sunmak.
+-Bittiği için sevinmek ve GitHub'a eklemek.
+
+
+while (isActivated){
+            System.out.println("Hoşgeldiniz. Ne yapmak istersiniz?");
+            System.out.println("  - ekle *--* sil *--* listele -");
+            String selectOperation = scn.nextLine();
+            switch (selectOperation) {
+                case "ekle":
+                    try {
+                        System.out.println("Lütfen eklemek istediğiniz kitabın kodunu giriniz: ");
+                        scn = new Scanner(System.in);
+                        bookid = scn.nextInt();
+                        scn.nextLine();
+
+                        System.out.println("Lütfen eklemek istediğiniz kitabın ismini giriniz: ");
+                        bookname = scn.nextLine();
+
+                        System.out.println("Lütfen " + bookname + " adlı kitabınızn kaç adet olucağını giriniz: ");
+                        bookamount = scn.nextInt();
+
+                        addBookPanel addBookPanel = new addBookPanel(bookid, bookname, bookamount);
+
+                        System.out.println("Şimdi ne yapmak istersiniz? ");
+
+                    } catch (InputMismatchException e) {
+                        System.out.println("Hatalı giriş yaptınız. Lütfen doğru veri tipinde giriş yapın.");
+                        scn.nextLine();
+                        continue;
+                    }
+                    break;
+                case "sil":
+                    try {
+                        scn = new Scanner(System.in);
+                        System.out.println("Lütfen silmek istediğiniz kitabın ürün kodunu giriniz: ");
+                        bookid = scn.nextInt();
+
+                        System.out.println("Lütfen silmek istediğiniz kitabın ismini giriniz: ");
+                        scn.nextLine();
+                        bookname = scn.nextLine();
+
+                        removeBookPanel removeBookPanel = new removeBookPanel(bookid, bookname);
+
+                        System.out.println("Şimdi ne yapmak istersiniz? ");
+
+                    } catch (InputMismatchException e) {
+                        System.out.println("Hatalı giriş yaptınız. Lütfen doğru veri tipinde giriş yapın.");
+                        scn.nextLine();
+                        continue;
+                    }
+                    break;
+                case "listele":
+                    listAllBooks listAllBooks = new listAllBooks(bookid, bookname, bookamount);
+                    break;
+                default:
+                    System.out.println("Hatalı işlem girişi yaptınız. Lütfen tekrar deneyiniz.");
+                    break;
+            }
+        }
